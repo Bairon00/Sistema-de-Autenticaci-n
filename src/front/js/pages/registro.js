@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 
 export const Register = () => {
-    const history = useHistory();
+    const { store, actions } = useContext(Context);
     const [usuario, setUsuario] = useState({
         Email: "",
         Password: ""
@@ -19,17 +19,17 @@ export const Register = () => {
     }
 
     return (
-        <form onSubmit={(e) => actions.registrarse(e, history)}>
+        <form onSubmit={() => actions.register(usuario.Email, usuario.Password)}>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label" onChange={aa}>Email</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="Email" />
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="Email" onChange={register} />
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label" onChange={aa}>Password</label>
+                <label for="inputPassword3" class="col-sm-2 col-form-label" >Password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="Password" />
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="Password" onChange={register} />
                 </div>
             </div>
 

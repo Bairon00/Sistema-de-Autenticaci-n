@@ -27,9 +27,8 @@ export const Login = () => {
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="Password" onChange={captura} />
                 </div>
-                <button type="submit" class="btn btn-primary" onClick={() => {
-                    actions.verificacion(datos.Email, datos.Password)
-                }}>Login</button>
+                <button type="submit" class="btn btn-primary" onClick={actions.login("bairon97@icloud.com", "bairon")}
+                >Login</button>
             </form>
         </div>
     )
