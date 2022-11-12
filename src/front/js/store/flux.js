@@ -33,7 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			register: (email, pass) => {
+			register: (email, pass, nav, e) => {
+				e.preventDefault();
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
@@ -49,19 +50,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-61t4os3ouy9.ws-us75.gitpod.io/register", requestOptions)
-					.then(response => response.text())
+				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/register", requestOptions)
+					.then(response => response.json())
 					.then(result => {
+						console.log(result)
 						if (result) {
-							window.location.href = "/home"
+							nav("/login")
 						}
 						else {
-							window.location.href = "/home2"
+							nav("/login")
 						}
 					})
 					.catch(error => console.log('error', error));
 			},
-			login: (email, pass) => {
+			Login: (email, pass) => {
+				console.log(email, pass);
+
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					"email": "bairon97@icloud.com",
+					"password": "bairon"
+				});
+
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/login", requestOptions)
+					.then(response => response.json())
+					.then(result => { console.log(result); localStorage.setItem("Token", result.token); })
+					.catch(error => console.log('error', error));
+			},
+			/* login: (email, pass, nav, e) => {
+
+				console.log(email, pass)
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
@@ -77,11 +104,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-61t4os3ouy9.ws-us75.gitpod.io/login", requestOptions)
+				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/login", requestOptions)
 					.then(response => response.json())
-					.then(result => localStorage.setItem("Token", result.token))
+					.then(result => console.log(result)
+						localStorage.setItem("Token", result.token)
+					)
 					.catch(error => console.log('error', error));
-			},
+			} */
 			verificacion: () => {
 				var myHeaders = new Headers();
 				myHeaders.append("Authorization", "Bearer " + localStorage.getItem("Token"));
@@ -92,11 +121,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-61t4os3ouy9.ws-us75.gitpod.io/profile", requestOptions)
+				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/profile", requestOptions)
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
 			},
+			cerrar: () => {
+				localStorage.clear()
+			},
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();

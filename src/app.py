@@ -73,10 +73,11 @@ def login():
     else:
         expiracion=datetime.timedelta(minutes=60)
         acceso=create_access_token(identity=body["email"],expires_delta=expiracion)
-        return {
-            "Login":"ok",
-            "token":acceso
-        }
+        return jsonify(
+            {"Login":"ok",
+            "token":acceso}
+            )
+        
 @app.route("/profile",methods=["GET"])
 @jwt_required()
 def profile():
@@ -93,7 +94,7 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return "agregado!"
+    return jsonify("agregado!")
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

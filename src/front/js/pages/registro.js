@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 export const Register = () => {
+    const navegar = useNavigate()
     const { store, actions } = useContext(Context);
     const [usuario, setUsuario] = useState({
         Email: "",
@@ -19,7 +20,7 @@ export const Register = () => {
     }
 
     return (
-        <form onSubmit={() => actions.register(usuario.Email, usuario.Password)}>
+        <form onSubmit={(e) => actions.register(usuario.Email, usuario.Password, navegar, e)}>
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
