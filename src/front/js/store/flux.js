@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/register", requestOptions)
+				fetch("https://3001-bairon00-sistemadeauten-vii16mp8sdl.ws-us75.gitpod.io/register", requestOptions)
 					.then(response => response.json())
 					.then(result => {
 						console.log(result)
@@ -63,32 +63,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch(error => console.log('error', error));
 			},
-			Login: (email, pass) => {
-				console.log(email, pass);
+			Login: (email, pass, e, navegar) => {
+				e.preventDefault();
 
-				var myHeaders = new Headers();
-				myHeaders.append("Content-Type", "application/json");
-
-				var raw = JSON.stringify({
-					"email": "bairon97@icloud.com",
-					"password": "bairon"
-				});
-
-				var requestOptions = {
-					method: 'POST',
-					headers: myHeaders,
-					body: raw,
-					redirect: 'follow'
-				};
-
-				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/login", requestOptions)
-					.then(response => response.json())
-					.then(result => { console.log(result); localStorage.setItem("Token", result.token); })
-					.catch(error => console.log('error', error));
-			},
-			/* login: (email, pass, nav, e) => {
-
-				console.log(email, pass)
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
@@ -104,13 +81,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/login", requestOptions)
+				fetch("https://3001-bairon00-sistemadeauten-vii16mp8sdl.ws-us75.gitpod.io/login", requestOptions)
 					.then(response => response.json())
-					.then(result => console.log(result)
-						localStorage.setItem("Token", result.token)
-					)
+					.then(result => { localStorage.setItem("Token", result.token); navegar("/Private") })
 					.catch(error => console.log('error', error));
-			} */
+			},
 			verificacion: () => {
 				var myHeaders = new Headers();
 				myHeaders.append("Authorization", "Bearer " + localStorage.getItem("Token"));
@@ -121,13 +96,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch("https://3001-bairon00-sistemadeauten-xzthi0nbcv0.ws-us75.gitpod.io/profile", requestOptions)
+				fetch("https://3001-bairon00-sistemadeauten-vii16mp8sdl.ws-us75.gitpod.io/profile", requestOptions)
 					.then(response => response.json())
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
 			},
-			cerrar: () => {
-				localStorage.clear()
+			cerrar: (navegar) => {
+				localStorage.clear();
+				navegar("/")
 			},
 
 			changeColor: (index, color) => {

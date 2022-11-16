@@ -16,7 +16,7 @@ export const Private = () => {
     return (
         <div>
             <h1>esta es una pagina privada !!!</h1>
-            <button onClick={() => actions.cerrar()}>Cerrar sesion</button>
+            <button onClick={() => actions.cerrar(navegar)}>Cerrar sesion</button>
 
         </div>
     )

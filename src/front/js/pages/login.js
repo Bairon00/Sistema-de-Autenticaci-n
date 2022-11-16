@@ -10,30 +10,27 @@ export const Login = () => {
         Email: "",
         Password: ""
     })
-    const captura = (e) => {
-        setDatos({
-            ...datos,
-            [e.target.name]: e.target.value
-        }
-        )
-        console.log(datos.Email, datos.Password)
-    }
-    actions.Login()
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
+
+
+
+
     return (
         <div>
-            <form onSubmit={(e) => actions.Login(datos.Email, datos.Password)} >
+            <form onSubmit={(e) => actions.Login(email, pass, e, navegar)} >
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="Email" onChange={captura} />
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="Email" onChange={(e) => { setEmail(e.target.value) }} />
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="Password" onChange={captura} />
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="Password" onChange={(e) => setPass(e.target.value)} />
                 </div>
                 <button type="submit" class="btn btn-primary"
                 >Login</button>
             </form>
         </div>
-    )
+    );
 }
 
